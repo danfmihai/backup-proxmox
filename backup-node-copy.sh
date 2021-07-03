@@ -3,7 +3,7 @@ clear
 
 hn=$(hostname)
 
-bk_dir="/tmp/node-$hn-$(date '+%m-%d-%Y')"
+bk_dir="/mnt/pdata/node-$hn-$(date '+%m-%d-%Y')"
 
 bk_dest="/mnt/pdata/hitachi/vps/proxmox/"
 
