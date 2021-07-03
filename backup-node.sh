@@ -44,7 +44,7 @@ read -rp "Are you sure you want to STOP the services and start the backup? (Y/n)
 
         cp /etc/hosts $bk_dir
         cp /root/* $bk_dir
-
+        tar czfP $bk_dir/etc-pve.tar.gz /etc/pve
 
         echo "Backup /etc/network/interfaces"
 
