@@ -1,7 +1,8 @@
 #!/bin/bash
 clear
 hn=$(hostname)
-bk_dir="/root/node-$hn-$(date '+%m-%d-%Y')"
+bk_dir="/mnt/pdata/node-$hn-$(date '+%m-%d-%Y')"
+bk_dest="/mnt/pdata/hitachi/vps/proxmox"
 echo "This script will create a backup of the Proxmox Node.\\n"
 
  if [ ! -d  $bk_dir ] 
@@ -50,9 +51,9 @@ read -rp "Are you sure you want to STOP the services and start the backup? (Y/n)
         echo "\\n"
         echo "Backup files created!\n"
         
-        rsync -a $bk_dir /mnt/backup/vps/proxmox
+        rsync -a $bk_dir $bk_dest
         
-        echo "Backup copied to /mnt/backup/vps/proxmox\\n"
+        echo "Backup copied to $bk_dest\\n"
                 
         systemctl start pvestatd.service
         systemctl start pvedaemon.service
