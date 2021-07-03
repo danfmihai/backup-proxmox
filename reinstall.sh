@@ -3,7 +3,7 @@ clear
 
 hn=$(hostname)
 
-bk_path=/mnt/backup/vps/proxmox/
+bk_path="/mnt/pdata/hitachi/vps/proxmox/"
 
 echo "Restore node and cluster configuration"
 echo "Current hostname is : $hn"
