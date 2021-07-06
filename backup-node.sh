@@ -44,7 +44,7 @@ read -rp "Are you sure you want to STOP the services and start the backup? (Y/n)
 
         cp /etc/hosts $bk_dir
         cp /root/* $bk_dir
-        tar czfP $bk_dir/etc-pve.tar.gz /etc/pve
+        tar czfP $bk_dir/etc-pve.tar.gz /etc/pve/node
 
         echo "Backup /etc/network/interfaces"
 
@@ -55,13 +55,15 @@ read -rp "Are you sure you want to STOP the services and start the backup? (Y/n)
         
         rsync -a $bk_dir $bk_dest
         
-        echo "Backup copied to $bk_dest\ "
+        echo "Backup copied to $bk_dest."
                 
         systemctl start pvestatd.service
         systemctl start pvedaemon.service
         systemctl start pve-cluster.service
         systemctl start pve-cluster.service
 
+        echo "Cleaning up..."
+        rm -r $bk_dir
         echo "Backup complete! Services restarted. "
 
         echo "For more info go to:"
