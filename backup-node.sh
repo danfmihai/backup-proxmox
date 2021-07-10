@@ -13,7 +13,7 @@ echo "This script will create a backup of the Proxmox Node. "
 echo "Backup folder is $bk_dir"       
 
 sleep 3 
-
+clear
 echo "Preparing the node for backup: "
 
 read -rp "Are you sure you want to STOP the services and start the backup? (Y/n) " yes_no
@@ -34,6 +34,8 @@ read -rp "Are you sure you want to STOP the services and start the backup? (Y/n)
 
         # echo "Backup /root/.ssh/ , there are two symlinks here to the shared pve config authorized_keys and authorized_keys.orig, don't worry about these two yet as they're stored in /var/lib/pve-cluster/"        
         
+        echo "Backup /root/.ssh"
+
         tar czfP $bk_dir/ssh-backup.tar.gz /root/.ssh
 
         echo "Backup /etc/corosync/"
@@ -43,8 +45,8 @@ read -rp "Are you sure you want to STOP the services and start the backup? (Y/n)
         echo "Backup file /etc/hosts/"
 
         cp /etc/hosts $bk_dir
-        cp /root/* $bk_dir
-        tar czfP $bk_dir/etc-pve.tar.gz /etc/pve/node
+        #cp /root/* $bk_dir
+        #tar czfP $bk_dir/etc-pve.tar.gz /etc/pve/node
 
         echo "Backup file /etc/network/interfaces"
 
@@ -72,6 +74,10 @@ read -rp "Are you sure you want to STOP the services and start the backup? (Y/n)
 
         echo "For more info go to:"
         echo "https://pve.proxmox.com/wiki/Proxmox_VE_4.x_Cluster#Re-installing_a_cluster_node "
+
+        echo 
+        echo "Files created:"
+        ls -lh $bk_dest
         exit 0;;
 
       [Nn]*) echo "Services NOT stopped! Backup not started!"
