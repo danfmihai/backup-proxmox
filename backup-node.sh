@@ -14,7 +14,7 @@ echo "Backup folder is $bk_dir"
 
 sleep 3 
 
-echo "Preparing the node for backup:\  "
+echo "Preparing the node for backup: "
 
 read -rp "Are you sure you want to STOP the services and start the backup? (Y/n) " yes_no
   case "$yes_no" in
@@ -40,16 +40,20 @@ read -rp "Are you sure you want to STOP the services and start the backup? (Y/n)
 
         tar czfP $bk_dir/corosync-backup.tar.gz /etc/corosync
 
-        echo "Backup /etc/hosts/"
+        echo "Backup file /etc/hosts/"
 
         cp /etc/hosts $bk_dir
         cp /root/* $bk_dir
         tar czfP $bk_dir/etc-pve.tar.gz /etc/pve/node
 
-        echo "Backup /etc/network/interfaces"
+        echo "Backup file /etc/network/interfaces"
 
         cp /etc/network/interfaces $bk_dir
         
+        echo "Backup /etc folder"
+        
+        tar czfP $bk_dir/etc-tar.gz /etc
+
         echo 
         echo "Backup files created!"
         
