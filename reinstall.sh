@@ -78,7 +78,7 @@ read -rp "Are you sure you want to RESTORE the node from backup? (Y/n) " yes_no
           cp /etc/fstab /etc/fstab.old
           blkid | grep nvme0n1p1 >> /etc/fstab
           nano /etc/fstab
-          
+
           systemctl start pve-cluster.service
           ln -sf /etc/pve/priv/authorized_keys /root/.ssh/authorized_keys
           ln -sf /etc/pve/priv/authorized_keys /root/.ssh/authorized_keys.orig
@@ -91,7 +91,7 @@ read -rp "Are you sure you want to RESTORE the node from backup? (Y/n) " yes_no
           echo "Installing programs nfs glances git"
           apt install -y glances nfs-kernel-server git
           cp -v /root/etc/exports /etc/
-
+          
           fi
 
 
