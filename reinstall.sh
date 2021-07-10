@@ -53,7 +53,7 @@ read -rp "Are you sure you want to RESTORE the node from backup? (Y/n) " yes_no
           if [ ! -f $step2 ]
           then            
           echo "Stopping services and restoring .ssh corosync and pve-cluster:"
-          systemctl stop pvestatd.service
+          systemctl stop pvestatd.service 
           systemctl stop pvedaemon.service
           systemctl stop pve-cluster.service  
           cp ssh-backup.tar.gz /root/
