@@ -1,7 +1,8 @@
 #!/bin/bash
 clear
 hn=$(hostname)
-bk_dir="/mnt/pdata/node-$hn-$(date '+%m-%d-%Y')"
+node="node-$hn-$(date '+%m-%d-%Y')"
+bk_dir="/mnt/pdata/$node"
 bk_dest="/mnt/pdata/hitachi/vps/proxmox"
 echo "This script will create a backup of the Proxmox Node. "
 
@@ -10,10 +11,8 @@ echo "This script will create a backup of the Proxmox Node. "
            mkdir $bk_dir
  fi
 
-echo "Backup folder is $bk_dir"       
-
 sleep 3 
-clear
+
 echo "Preparing the node for backup: "
 
 read -rp "Are you sure you want to STOP the services and start the backup? (Y/n) " yes_no
@@ -28,7 +27,7 @@ read -rp "Are you sure you want to STOP the services and start the backup? (Y/n)
         systemctl stop pvedaemon.service
         systemctl stop pve-cluster.service
 
-        echo "Backup node and cluster configuration:"
+        echo "Backup node and cluster configuration. Please wait..."
 
         tar czfP $bk_dir/pve-cluster-backup.tar.gz /var/lib/pve-cluster
 
@@ -61,7 +60,7 @@ read -rp "Are you sure you want to STOP the services and start the backup? (Y/n)
         
         rsync -a $bk_dir $bk_dest
         
-        echo "Backup copied to $bk_dest."
+        echo " ###  Backup copied to $bk_dest.   ###"
                 
         systemctl start pvestatd.service
         systemctl start pvedaemon.service
@@ -77,7 +76,7 @@ read -rp "Are you sure you want to STOP the services and start the backup? (Y/n)
 
         echo 
         echo "Files created:"
-        ls -lh $bk_dest
+        ls -lh $bk_dest/$node
         exit 0;;
 
       [Nn]*) echo "Services NOT stopped! Backup not started!"
