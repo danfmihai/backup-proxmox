@@ -76,7 +76,7 @@ read -rp "Are you sure you want to RESTORE the node from backup? (Y/n) " yes_no
           echo "Mounting nvme drive permanently in /etc/fstab"
           lsblk | grep nvme0n1p1
           cp /etc/fstab /etc/fstab.old
-          blkid | grep nvme0n1p1 >> /etc/fstab
+          blkid | grep nvme0n1p | awk '{print $2 }' | tr -d '"' >> /root/id.txt
           nano /etc/fstab
 
           systemctl start pve-cluster.service
