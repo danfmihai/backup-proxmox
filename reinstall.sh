@@ -65,6 +65,20 @@ read -rp "Are you sure you want to RESTORE the node from backup? (Y/n) " yes_no
           cd / ; tar -xzf /root/pve-cluster-backup.tar.gz
           rm -rf /etc/corosync
           cd / ; tar -xzf /root/corosync-backup.tar.gz 
+          cd / ; tar -xzf /root/etc-tar.gz  
+          echo "Copying /etc/apt folder"
+          rm -rf /etc/apt
+          cp -v /root/etc/apt /etc 
+          echo "Copying /etc/default/grub file and the /etc/modules"
+          cp -v /root/etc/default/grub /etc/default/
+          cp -v /root/etc/modules /etc/modules
+
+          echo "Mounting nvme drive permanently in /etc/fstab"
+          lsblk | grep nvme0n1p1
+          cp /etc/fstab /etc/fstab.old
+          blkid | grep nvme0n1p1 >> /etc/fstab
+          nano /etc/fstab
+          
           systemctl start pve-cluster.service
           ln -sf /etc/pve/priv/authorized_keys /root/.ssh/authorized_keys
           ln -sf /etc/pve/priv/authorized_keys /root/.ssh/authorized_keys.orig
@@ -74,7 +88,11 @@ read -rp "Are you sure you want to RESTORE the node from backup? (Y/n) " yes_no
           echo "Restoring grub file:"
           touch $step2
           
+          echo "Installing programs nfs glances git"
+          apt install -y glances nfs-kernel-server git
+          cp -v /root/etc/exports /etc/
 
+          fi
 
 
       fi 
