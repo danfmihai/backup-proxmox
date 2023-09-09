@@ -1,0 +1,12 @@
+# Mount NFS shares
+
+#/mnt/wdred/nextcloud   -fstype=nfs4,rw,hard,bg     truenas.lan:/mnt/wdred/nextcloud
+
+/mnt/stuff/media        -fstype=nfs4,rw,hard,bg      truenas.lan:/mnt/ironwolf/pdata/storage/completed
+/mnt/stuff/wdred        -fstype=nfs4,rw,hard,bg      truenas.lan:/mnt/wdred/media/movies
+/mnt/stuff/kids         -fstype=nfs4,rw,hard,bg      truenas.lan:/mnt/wdred/media/kids                    
+/mnt/stuff/4k     	    -fstype=nfs4,rw,hard,bg      truenas.lan:/mnt/wdred/media/movies/4k/
+/mnt/hitachi            -fstype=nfs4,rw,hard,bg      truenas.lan:/mnt/ironwolf/pdata/hitachi                    
+/mnt/nextcloud          -fstype=nfs4,rw,hard,bg      truenas.lan:/mnt/wdred/nextcloud
+/mnt/backups            -fstype=nfs4,rw,hard,bg      truenas.lan:/mnt/wdred/backups
+/mnt/k8-share            -fstype=nfs4,rw,hard,bg      truenas.lan:/mnt/wdred/ironwolf/k8-share
